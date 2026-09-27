@@ -4,6 +4,8 @@ import './App.css'
 function App() {
   const [task, setTask] = useState('')
   const [tasks, setTasks] = useState([])
+  const [editId, setEditId] = useState(null)
+  const [editText, setEditText] = useState('')
 
   const addTask = (e) => {
     e.preventDefault()
@@ -36,6 +38,28 @@ function App() {
     setTasks(tasks.filter((item) => item.id !== id))
   }
 
+  const startEdit = (item) => {
+    setEditId(item.id)
+    setEditText(item.text)
+  }
+
+  const saveEdit = (id) => {
+    if (editText.trim() === '') {
+      return
+    }
+
+    setTasks(
+      tasks.map((item) =>
+        item.id === id
+          ? { ...item, text: editText }
+          : item
+      )
+    )
+
+    setEditId(null)
+    setEditText('')
+  }
+
   return (
     <div className="todo-container">
       <h1>My To-Do List</h1>
@@ -55,20 +79,40 @@ function App() {
         {tasks.map((item) => (
           <div className="task-item" key={item.id}>
 
-            <span
-              onClick={() => toggleTask(item.id)}
-              style={{
-                textDecoration: item.completed
-                  ? 'line-through'
-                  : 'none'
-              }}
-            >
-              {item.text}
-            </span>
+            {editId === item.id ? (
+              <>
+                <input
+                  type="text"
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
+                />
 
-            <button onClick={() => deleteTask(item.id)}>
-              Delete
-            </button>
+                <button onClick={() => saveEdit(item.id)}>
+                  Save
+                </button>
+              </>
+            ) : (
+              <>
+                <span
+                  onClick={() => toggleTask(item.id)}
+                  style={{
+                    textDecoration: item.completed
+                      ? 'line-through'
+                      : 'none'
+                  }}
+                >
+                  {item.text}
+                </span>
+
+                <button onClick={() => startEdit(item)}>
+                  Edit
+                </button>
+
+                <button onClick={() => deleteTask(item.id)}>
+                  Delete
+                </button>
+              </>
+            )}
 
           </div>
         ))}
