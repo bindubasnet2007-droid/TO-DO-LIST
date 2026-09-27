@@ -1,29 +1,36 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+
+import TodoForm from './components/TodoForm'
+import SearchBar from './components/SearchBar'
+import TodoStats from './components/TodoStats'
+import FilterButtons from './components/FilterButtons'
+import TodoList from './components/TodoList'
 
 function App() {
   const [task, setTask] = useState('')
+
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem('tasks')
-
     return savedTasks ? JSON.parse(savedTasks) : []
   })
 
   const [editId, setEditId] = useState(null)
   const [editText, setEditText] = useState('')
+
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
 
+  // Save tasks to localStorage
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
   }, [tasks])
 
+  // Add task
   const addTask = (e) => {
     e.preventDefault()
 
-    if (task.trim() === '') {
-      return
-    }
+    if (task.trim() === '') return
 
     const newTask = {
       id: Date.now(),
@@ -35,6 +42,7 @@ function App() {
     setTask('')
   }
 
+  // Complete / uncomplete task
   const toggleTask = (id) => {
     setTasks(
       tasks.map((item) =>
@@ -45,19 +53,20 @@ function App() {
     )
   }
 
+  // Delete task
   const deleteTask = (id) => {
     setTasks(tasks.filter((item) => item.id !== id))
   }
 
+  // Start editing
   const startEdit = (item) => {
     setEditId(item.id)
     setEditText(item.text)
   }
 
+  // Save edited task
   const saveEdit = (id) => {
-    if (editText.trim() === '') {
-      return
-    }
+    if (editText.trim() === '') return
 
     setTasks(
       tasks.map((item) =>
@@ -71,6 +80,7 @@ function App() {
     setEditText('')
   }
 
+  // Filter and search tasks
   const filteredTasks = tasks.filter((item) => {
     const matchesFilter =
       filter === 'all' ||
@@ -84,6 +94,7 @@ function App() {
     return matchesFilter && matchesSearch
   })
 
+  // Task statistics
   const totalTasks = tasks.length
 
   const completedTasks = tasks.filter(
@@ -97,99 +108,38 @@ function App() {
 
       <h1>My To-Do List</h1>
 
-      <form onSubmit={addTask} className="todo-form">
-        <input
-          type="text"
-          placeholder="Enter a task..."
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
-        />
+      <TodoForm
+        task={task}
+        setTask={setTask}
+        addTask={addTask}
+      />
 
-        <button type="submit">Add Task</button>
-      </form>
+      <SearchBar
+        search={search}
+        setSearch={setSearch}
+      />
 
-      <div className="search-box">
-        <input
-          type="text"
-          placeholder="Search tasks..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
+      <TodoStats
+        totalTasks={totalTasks}
+        completedTasks={completedTasks}
+        remainingTasks={remainingTasks}
+      />
 
-      <div className="stats">
-        <div>
-          <strong>{totalTasks}</strong>
-          <span>Total</span>
-        </div>
+      <FilterButtons
+        filter={filter}
+        setFilter={setFilter}
+      />
 
-        <div>
-          <strong>{completedTasks}</strong>
-          <span>Completed</span>
-        </div>
-
-        <div>
-          <strong>{remainingTasks}</strong>
-          <span>Remaining</span>
-        </div>
-      </div>
-
-      <div className="filters">
-        <button onClick={() => setFilter('all')}>
-          All
-        </button>
-
-        <button onClick={() => setFilter('active')}>
-          Active
-        </button>
-
-        <button onClick={() => setFilter('completed')}>
-          Completed
-        </button>
-      </div>
-
-      <div className="task-list">
-        {filteredTasks.map((item) => (
-          <div className="task-item" key={item.id}>
-
-            {editId === item.id ? (
-              <>
-                <input
-                  type="text"
-                  value={editText}
-                  onChange={(e) => setEditText(e.target.value)}
-                />
-
-                <button onClick={() => saveEdit(item.id)}>
-                  Save
-                </button>
-              </>
-            ) : (
-              <>
-                <span
-                  onClick={() => toggleTask(item.id)}
-                  style={{
-                    textDecoration: item.completed
-                      ? 'line-through'
-                      : 'none'
-                  }}
-                >
-                  {item.text}
-                </span>
-
-                <button onClick={() => startEdit(item)}>
-                  Edit
-                </button>
-
-                <button onClick={() => deleteTask(item.id)}>
-                  Delete
-                </button>
-              </>
-            )}
-
-          </div>
-        ))}
-      </div>
+      <TodoList
+        filteredTasks={filteredTasks}
+        editId={editId}
+        editText={editText}
+        setEditText={setEditText}
+        startEdit={startEdit}
+        saveEdit={saveEdit}
+        toggleTask={toggleTask}
+        deleteTask={deleteTask}
+      />
 
     </div>
   )
