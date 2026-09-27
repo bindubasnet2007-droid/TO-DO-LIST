@@ -22,6 +22,16 @@ function App() {
     setTask('')
   }
 
+  const toggleTask = (id) => {
+    setTasks(
+      tasks.map((item) =>
+        item.id === id
+          ? { ...item, completed: !item.completed }
+          : item
+      )
+    )
+  }
+
   return (
     <div className="todo-container">
       <h1>My To-Do List</h1>
@@ -39,8 +49,20 @@ function App() {
 
       <div className="task-list">
         {tasks.map((item) => (
-          <div className="task-item" key={item.id}>
-            <span>{item.text}</span>
+          <div
+            className="task-item"
+            key={item.id}
+            onClick={() => toggleTask(item.id)}
+          >
+            <span
+              style={{
+                textDecoration: item.completed
+                  ? 'line-through'
+                  : 'none'
+              }}
+            >
+              {item.text}
+            </span>
           </div>
         ))}
       </div>
