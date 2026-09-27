@@ -73,6 +73,12 @@ function App() {
     return true
   })
 
+  const totalTasks = tasks.length
+  const completedTasks = tasks.filter(
+    (item) => item.completed
+  ).length
+  const remainingTasks = totalTasks - completedTasks
+
   return (
     <div className="todo-container">
       <h1>My To-Do List</h1>
@@ -87,6 +93,23 @@ function App() {
 
         <button type="submit">Add Task</button>
       </form>
+
+      <div className="stats">
+        <div>
+          <strong>{totalTasks}</strong>
+          <span>Total</span>
+        </div>
+
+        <div>
+          <strong>{completedTasks}</strong>
+          <span>Completed</span>
+        </div>
+
+        <div>
+          <strong>{remainingTasks}</strong>
+          <span>Remaining</span>
+        </div>
+      </div>
 
       <div className="filters">
         <button onClick={() => setFilter('all')}>

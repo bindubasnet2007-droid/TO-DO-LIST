@@ -187,3 +187,35 @@ body {
 .todo-form input::placeholder {
   color: #777777;
 }
+.stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.stats div {
+  flex: 1;
+  text-align: center;
+  background-color: #faf5ff;
+  border: 1px solid #e9d5ff;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.stats strong {
+  display: block;
+  color: #7e22ce;
+  font-size: 22px;
+}
+
+.stats span {
+  color: #000000;
+  font-size: 13px;
+}
+
+@media (max-width: 500px) {
+  .stats {
+    flex-direction: column;
+  }
+}
