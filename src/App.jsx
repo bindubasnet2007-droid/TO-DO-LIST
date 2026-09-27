@@ -32,6 +32,10 @@ function App() {
     )
   }
 
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((item) => item.id !== id))
+  }
+
   return (
     <div className="todo-container">
       <h1>My To-Do List</h1>
@@ -49,12 +53,10 @@ function App() {
 
       <div className="task-list">
         {tasks.map((item) => (
-          <div
-            className="task-item"
-            key={item.id}
-            onClick={() => toggleTask(item.id)}
-          >
+          <div className="task-item" key={item.id}>
+
             <span
+              onClick={() => toggleTask(item.id)}
               style={{
                 textDecoration: item.completed
                   ? 'line-through'
@@ -63,6 +65,11 @@ function App() {
             >
               {item.text}
             </span>
+
+            <button onClick={() => deleteTask(item.id)}>
+              Delete
+            </button>
+
           </div>
         ))}
       </div>
