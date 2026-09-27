@@ -1,13 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
   const [task, setTask] = useState('')
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('tasks')
+
+    return savedTasks ? JSON.parse(savedTasks) : []
+  })
+
   const [editId, setEditId] = useState(null)
   const [editText, setEditText] = useState('')
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
 
   const addTask = (e) => {
     e.preventDefault()
@@ -88,7 +97,6 @@ function App() {
 
       <h1>My To-Do List</h1>
 
-      {/* Add Task */}
       <form onSubmit={addTask} className="todo-form">
         <input
           type="text"
@@ -100,7 +108,6 @@ function App() {
         <button type="submit">Add Task</button>
       </form>
 
-      {/* Search */}
       <div className="search-box">
         <input
           type="text"
@@ -110,7 +117,6 @@ function App() {
         />
       </div>
 
-      {/* Statistics */}
       <div className="stats">
         <div>
           <strong>{totalTasks}</strong>
@@ -128,7 +134,6 @@ function App() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="filters">
         <button onClick={() => setFilter('all')}>
           All
@@ -143,7 +148,6 @@ function App() {
         </button>
       </div>
 
-      {/* Task List */}
       <div className="task-list">
         {filteredTasks.map((item) => (
           <div className="task-item" key={item.id}>
