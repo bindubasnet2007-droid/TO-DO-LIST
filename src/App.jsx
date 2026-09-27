@@ -7,6 +7,7 @@ function App() {
   const [editId, setEditId] = useState(null)
   const [editText, setEditText] = useState('')
   const [filter, setFilter] = useState('all')
+  const [search, setSearch] = useState('')
 
   const addTask = (e) => {
     e.preventDefault()
@@ -62,27 +63,32 @@ function App() {
   }
 
   const filteredTasks = tasks.filter((item) => {
-    if (filter === 'active') {
-      return !item.completed
-    }
+    const matchesFilter =
+      filter === 'all' ||
+      (filter === 'active' && !item.completed) ||
+      (filter === 'completed' && item.completed)
 
-    if (filter === 'completed') {
-      return item.completed
-    }
+    const matchesSearch = item.text
+      .toLowerCase()
+      .includes(search.toLowerCase())
 
-    return true
+    return matchesFilter && matchesSearch
   })
 
   const totalTasks = tasks.length
+
   const completedTasks = tasks.filter(
     (item) => item.completed
   ).length
+
   const remainingTasks = totalTasks - completedTasks
 
   return (
     <div className="todo-container">
+
       <h1>My To-Do List</h1>
 
+      {/* Add Task */}
       <form onSubmit={addTask} className="todo-form">
         <input
           type="text"
@@ -94,6 +100,17 @@ function App() {
         <button type="submit">Add Task</button>
       </form>
 
+      {/* Search */}
+      <div className="search-box">
+        <input
+          type="text"
+          placeholder="Search tasks..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      {/* Statistics */}
       <div className="stats">
         <div>
           <strong>{totalTasks}</strong>
@@ -111,6 +128,7 @@ function App() {
         </div>
       </div>
 
+      {/* Filters */}
       <div className="filters">
         <button onClick={() => setFilter('all')}>
           All
@@ -125,6 +143,7 @@ function App() {
         </button>
       </div>
 
+      {/* Task List */}
       <div className="task-list">
         {filteredTasks.map((item) => (
           <div className="task-item" key={item.id}>
@@ -167,6 +186,7 @@ function App() {
           </div>
         ))}
       </div>
+
     </div>
   )
 }

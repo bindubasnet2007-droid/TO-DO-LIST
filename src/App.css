@@ -219,3 +219,25 @@ body {
     flex-direction: column;
   }
 }
+.search-box {
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid #e9d5ff;
+  border-radius: 12px;
+  outline: none;
+  font-size: 15px;
+  color: #000000;
+  background-color: #faf5ff;
+}
+
+.search-box input:focus {
+  border-color: #a855f7;
+}
+
+.search-box input::placeholder {
+  color: #777777;
+}
