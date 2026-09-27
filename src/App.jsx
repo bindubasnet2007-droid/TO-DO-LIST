@@ -6,6 +6,7 @@ function App() {
   const [tasks, setTasks] = useState([])
   const [editId, setEditId] = useState(null)
   const [editText, setEditText] = useState('')
+  const [filter, setFilter] = useState('all')
 
   const addTask = (e) => {
     e.preventDefault()
@@ -60,6 +61,18 @@ function App() {
     setEditText('')
   }
 
+  const filteredTasks = tasks.filter((item) => {
+    if (filter === 'active') {
+      return !item.completed
+    }
+
+    if (filter === 'completed') {
+      return item.completed
+    }
+
+    return true
+  })
+
   return (
     <div className="todo-container">
       <h1>My To-Do List</h1>
@@ -75,8 +88,22 @@ function App() {
         <button type="submit">Add Task</button>
       </form>
 
+      <div className="filters">
+        <button onClick={() => setFilter('all')}>
+          All
+        </button>
+
+        <button onClick={() => setFilter('active')}>
+          Active
+        </button>
+
+        <button onClick={() => setFilter('completed')}>
+          Completed
+        </button>
+      </div>
+
       <div className="task-list">
-        {tasks.map((item) => (
+        {filteredTasks.map((item) => (
           <div className="task-item" key={item.id}>
 
             {editId === item.id ? (

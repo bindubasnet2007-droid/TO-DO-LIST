@@ -153,3 +153,37 @@ body {
     flex-wrap: wrap;
   }
 }
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.filters button {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+  border: 1px solid #d8b4fe;
+  padding: 9px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filters button:hover {
+  background-color: #d8b4fe;
+  color: white;
+}
+
+@media (max-width: 500px) {
+  .filters {
+    flex-wrap: wrap;
+  }
+}
+.todo-form input {
+  color: #000000;
+}
+
+.todo-form input::placeholder {
+  color: #777777;
+}
