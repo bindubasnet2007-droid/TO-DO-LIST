@@ -1,58 +1,54 @@
-# To-Do List
+# To-Do List Website
 
-A simple and responsive To-Do List web application built using React.
+## Project Description
 
-It allows users to create, manage, search, filter, edit, and complete their daily tasks.
+The To-Do List is a simple web application that allows users to manage their daily tasks. Users can add tasks, view their task list, and manage their tasks through an easy-to-use interface.
 
 ## Features
 
-- Add new tasks
-- Mark tasks as completed
-- Edit existing tasks
-- Delete tasks
-- Search tasks
-- Filter tasks by All, Active, and Completed
-- View total, completed, and remaining tasks
-- Save tasks using Local Storage
-- Responsive design
+* Add new tasks
+* Display added tasks
+* Mark tasks as completed
+* Delete tasks
+* Simple and user-friendly interface
+* Responsive design for different screen sizes
 
-## Technologies Used
+## Technologies and Libraries Used
 
-- React
-- JavaScript
-- HTML
-- CSS
-- Vite
+* React.js
+* JavaScript
+* HTML
+* CSS
+* Vite
+* React Hooks
 
-## React Concepts Used
+## Setup Instructions
 
-- Functional Components
-- Props
-- State
-- useState
-- useEffect
-- Event Handling
-- Conditional Rendering
-- List Rendering
-- Callback Props
-- Keys
-- Forms
-- Local Storage
+ 1. Download the project
 
-## Components
+Download the project from GitHub and open the project folder in VS Code.
 
-- TodoForm
-- SearchBar
-- TodoStats
-- FilterButtons
-- TodoList
+ 2. Install dependencies
 
-## How to Run
-
-1. Clone the repository.
-2. Open the project folder in VS Code.
-3. Open the terminal.
-4. Install the required dependencies:
+Open the terminal in the project folder and run:
 
 ```bash
 npm install
+```
+
+3. Start the development server
+
+Run:
+
+```bash
+npm run dev
+```
+
+The terminal will provide a local URL. Open that URL in your browser to run the application.
+
+
+## Known Limitations
+
+* Tasks are saved in the browser only and cannot be accessed on other devices.
+* The application does not currently have user login or account functionality.
+* No backend database is connected to the application.
