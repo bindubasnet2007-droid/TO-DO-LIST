@@ -21,12 +21,10 @@ function App() {
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
 
-  // Save tasks to localStorage
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
   }, [tasks])
 
-  // Add task
   const addTask = (e) => {
     e.preventDefault()
 
@@ -42,7 +40,6 @@ function App() {
     setTask('')
   }
 
-  // Complete / uncomplete task
   const toggleTask = (id) => {
     setTasks(
       tasks.map((item) =>
@@ -53,18 +50,15 @@ function App() {
     )
   }
 
-  // Delete task
   const deleteTask = (id) => {
     setTasks(tasks.filter((item) => item.id !== id))
   }
 
-  // Start editing
   const startEdit = (item) => {
     setEditId(item.id)
     setEditText(item.text)
   }
 
-  // Save edited task
   const saveEdit = (id) => {
     if (editText.trim() === '') return
 
@@ -80,7 +74,6 @@ function App() {
     setEditText('')
   }
 
-  // Filter and search tasks
   const filteredTasks = tasks.filter((item) => {
     const matchesFilter =
       filter === 'all' ||
@@ -94,7 +87,6 @@ function App() {
     return matchesFilter && matchesSearch
   })
 
-  // Task statistics
   const totalTasks = tasks.length
 
   const completedTasks = tasks.filter(

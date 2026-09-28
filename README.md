@@ -2,6 +2,8 @@
 
 A simple and responsive To-Do List web application built using React.
 
+It allows users to create, manage, search, filter, edit, and complete their daily tasks.
+
 ## Features
 
 - Add new tasks
@@ -50,7 +52,7 @@ A simple and responsive To-Do List web application built using React.
 1. Clone the repository.
 2. Open the project folder in VS Code.
 3. Open the terminal.
-4. Run:
+4. Install the required dependencies:
 
 ```bash
 npm install

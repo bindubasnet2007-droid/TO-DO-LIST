@@ -1,17 +1,28 @@
 const FilterButtons = ({ filter, setFilter }) => {
   return (
     <div className="filters">
-      <button onClick={() => setFilter('all')}>
+
+      <button
+        className={filter === 'all' ? 'active-filter' : ''}
+        onClick={() => setFilter('all')}
+      >
         All
       </button>
 
-      <button onClick={() => setFilter('active')}>
+      <button
+        className={filter === 'active' ? 'active-filter' : ''}
+        onClick={() => setFilter('active')}
+      >
         Active
       </button>
 
-      <button onClick={() => setFilter('completed')}>
+      <button
+        className={filter === 'completed' ? 'active-filter' : ''}
+        onClick={() => setFilter('completed')}
+      >
         Completed
       </button>
+
     </div>
   )
 }

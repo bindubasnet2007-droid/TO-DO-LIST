@@ -1,6 +1,11 @@
-const TodoStats = ({ totalTasks, completedTasks, remainingTasks }) => {
+const TodoStats = ({
+  totalTasks,
+  completedTasks,
+  remainingTasks
+}) => {
   return (
     <div className="stats">
+
       <div>
         <strong>{totalTasks}</strong>
         <span>Total</span>
@@ -15,6 +20,7 @@ const TodoStats = ({ totalTasks, completedTasks, remainingTasks }) => {
         <strong>{remainingTasks}</strong>
         <span>Remaining</span>
       </div>
+
     </div>
   )
 }

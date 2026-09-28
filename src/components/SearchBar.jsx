@@ -3,7 +3,7 @@ const SearchBar = ({ search, setSearch }) => {
     <div className="search-box">
       <input
         type="text"
-        placeholder="Search tasks..."
+        placeholder="Search your tasks..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />

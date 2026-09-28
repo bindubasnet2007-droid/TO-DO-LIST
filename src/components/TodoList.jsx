@@ -10,6 +10,7 @@ const TodoList = ({
 }) => {
   return (
     <div className="task-list">
+
       {filteredTasks.map((item) => (
         <div className="task-item" key={item.id}>
 
@@ -50,6 +51,7 @@ const TodoList = ({
 
         </div>
       ))}
+
     </div>
   )
 }
