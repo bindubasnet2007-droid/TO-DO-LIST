@@ -46,6 +46,24 @@ npm run dev
 
 The terminal will provide a local URL. Open that URL in your browser to run the application.
 
+## Screenshots
+
+### Main Page
+
+![Main Page](./screenshots/mainpage.jpg)
+
+### Task Management
+
+![Task Management](./screenshots/task.jpg)
+
+### Due Date and Overdue Task
+
+![Due Date and Overdue Task](./screenshots/due_date.jpg)
+
+### Dark Theme
+
+![Dark Theme](./screenshots/dark_theme.jpg)
+
 
 ## Known Limitations
 
