@@ -9,6 +9,7 @@ import TodoList from './components/TodoList'
 
 function App() {
   const [task, setTask] = useState('')
+  const [dueDate, setDueDate] = useState('')
 
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem('tasks')
@@ -21,9 +22,17 @@ function App() {
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
 
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true'
+  })
+
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
   }, [tasks])
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', darkMode)
+  }, [darkMode])
 
   const addTask = (e) => {
     e.preventDefault()
@@ -33,11 +42,13 @@ function App() {
     const newTask = {
       id: Date.now(),
       text: task,
+      dueDate: dueDate,
       completed: false
     }
 
     setTasks([...tasks, newTask])
     setTask('')
+    setDueDate('')
   }
 
   const toggleTask = (id) => {
@@ -74,6 +85,34 @@ function App() {
     setEditText('')
   }
 
+  const handleDragStart = (e, id) => {
+    e.dataTransfer.setData('taskId', id)
+  }
+
+  const handleDrop = (e, targetId) => {
+    e.preventDefault()
+
+    const draggedId = Number(e.dataTransfer.getData('taskId'))
+
+    if (draggedId === targetId) return
+
+    const draggedIndex = tasks.findIndex(
+      (item) => item.id === draggedId
+    )
+
+    const targetIndex = tasks.findIndex(
+      (item) => item.id === targetId
+    )
+
+    const updatedTasks = [...tasks]
+
+    const [draggedTask] = updatedTasks.splice(draggedIndex, 1)
+
+    updatedTasks.splice(targetIndex, 0, draggedTask)
+
+    setTasks(updatedTasks)
+  }
+
   const filteredTasks = tasks.filter((item) => {
     const matchesFilter =
       filter === 'all' ||
@@ -96,42 +135,59 @@ function App() {
   const remainingTasks = totalTasks - completedTasks
 
   return (
-    <div className="todo-container">
+    <div className={darkMode ? 'app dark-mode' : 'app'}>
 
-      <h1>My To-Do List</h1>
+      <div className="todo-container">
 
-      <TodoForm
-        task={task}
-        setTask={setTask}
-        addTask={addTask}
-      />
+        <div className="header">
+          <h1>My To-Do List</h1>
 
-      <SearchBar
-        search={search}
-        setSearch={setSearch}
-      />
+          <button
+            className="theme-button"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+          </button>
+        </div>
 
-      <TodoStats
-        totalTasks={totalTasks}
-        completedTasks={completedTasks}
-        remainingTasks={remainingTasks}
-      />
+        <TodoForm
+          task={task}
+          setTask={setTask}
+          dueDate={dueDate}
+          setDueDate={setDueDate}
+          addTask={addTask}
+        />
 
-      <FilterButtons
-        filter={filter}
-        setFilter={setFilter}
-      />
+        <SearchBar
+          search={search}
+          setSearch={setSearch}
+        />
 
-      <TodoList
-        filteredTasks={filteredTasks}
-        editId={editId}
-        editText={editText}
-        setEditText={setEditText}
-        startEdit={startEdit}
-        saveEdit={saveEdit}
-        toggleTask={toggleTask}
-        deleteTask={deleteTask}
-      />
+        <TodoStats
+          totalTasks={totalTasks}
+          completedTasks={completedTasks}
+          remainingTasks={remainingTasks}
+        />
+
+        <FilterButtons
+          filter={filter}
+          setFilter={setFilter}
+        />
+
+        <TodoList
+          filteredTasks={filteredTasks}
+          editId={editId}
+          editText={editText}
+          setEditText={setEditText}
+          startEdit={startEdit}
+          saveEdit={saveEdit}
+          toggleTask={toggleTask}
+          deleteTask={deleteTask}
+          handleDragStart={handleDragStart}
+          handleDrop={handleDrop}
+        />
+
+      </div>
 
     </div>
   )

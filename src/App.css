@@ -10,9 +10,12 @@ body {
   min-height: 100vh;
   padding: 50px 20px;
   color: #3f3746;
+  transition: all 0.3s ease;
 }
 
-/* Main Container */
+/* =========================
+   MAIN CONTAINER
+========================= */
 
 .todo-container {
   width: 100%;
@@ -25,20 +28,52 @@ body {
   box-shadow:
     0 20px 50px rgba(120, 78, 111, 0.08),
     0 4px 12px rgba(120, 78, 111, 0.04);
+  transition: all 0.3s ease;
 }
 
-/* Heading */
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 34px;
+}
 
 .todo-container h1 {
   text-align: center;
   color: #5b4355;
   font-size: 36px;
   font-weight: 700;
-  margin-bottom: 34px;
   letter-spacing: -0.5px;
 }
 
-/* Add Task */
+/* =========================
+   DARK / LIGHT BUTTON
+========================= */
+
+.theme-button {
+  background: #c56b9b;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-button:hover {
+  background: #b85d8e;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(197, 107, 155, 0.18);
+}
+
+/* =========================
+   ADD TASK
+========================= */
 
 .todo-form {
   display: flex;
@@ -67,6 +102,16 @@ body {
   box-shadow: 0 0 0 3px rgba(212, 139, 177, 0.12);
 }
 
+/* Date Input */
+
+.todo-form input[type="date"] {
+  flex: 0 0 150px;
+  color: #807480;
+  cursor: pointer;
+}
+
+/* Add Button */
+
 .todo-form button {
   background: #c56b9b;
   color: white;
@@ -84,7 +129,9 @@ body {
   box-shadow: 0 5px 12px rgba(197, 107, 155, 0.18);
 }
 
-/* Search */
+/* =========================
+   SEARCH
+========================= */
 
 .search-box {
   margin-bottom: 24px;
@@ -111,7 +158,9 @@ body {
   box-shadow: 0 0 0 3px rgba(212, 139, 177, 0.12);
 }
 
-/* Statistics */
+/* =========================
+   STATISTICS
+========================= */
 
 .stats {
   display: grid;
@@ -146,7 +195,9 @@ body {
   font-size: 13px;
 }
 
-/* Filters */
+/* =========================
+   FILTERS
+========================= */
 
 .filters {
   display: flex;
@@ -178,13 +229,19 @@ body {
   box-shadow: 0 4px 10px rgba(197, 107, 155, 0.15);
 }
 
-/* Task List */
+/* =========================
+   TASK LIST
+========================= */
 
 .task-list {
   display: flex;
   flex-direction: column;
   gap: 11px;
 }
+
+/* =========================
+   TASK ITEM
+========================= */
 
 .task-item {
   display: flex;
@@ -196,6 +253,7 @@ body {
   border-radius: 14px;
   box-shadow: 0 3px 10px rgba(120, 78, 111, 0.035);
   transition: all 0.2s ease;
+  cursor: grab;
 }
 
 .task-item:hover {
@@ -204,15 +262,104 @@ body {
   box-shadow: 0 8px 20px rgba(120, 78, 111, 0.07);
 }
 
-.task-item span {
-  flex: 1;
+/* When dragging */
+
+.task-item:active {
+  cursor: grabbing;
+}
+
+/* =========================
+   DRAG ICON
+========================= */
+
+.drag-icon {
+  color: #b45d8d;
+  font-size: 20px;
+  cursor: grab;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.drag-icon:hover {
+  color: #c56b9b;
+  transform: scale(1.1);
+}
+
+/* =========================
+   CHECKBOX
+========================= */
+
+.task-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #c56b9b;
   cursor: pointer;
+}
+
+/* =========================
+   TASK CONTENT
+========================= */
+
+.task-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.task-text {
   color: #463d48;
   font-size: 15px;
   font-weight: 500;
+  cursor: pointer;
 }
 
-.task-item input {
+/* =========================
+   DUE DATE
+========================= */
+
+.due-date {
+  color: #8d7c89;
+  font-size: 12px;
+}
+
+/* =========================
+   OVERDUE
+========================= */
+
+.overdue {
+  border: 1px solid #e6a2b5;
+  background: #fff7fa;
+}
+
+.overdue:hover {
+  border-color: #d47b9f;
+}
+
+.overdue-text {
+  color: #c45b7f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================
+   COMPLETED TASK
+========================= */
+
+.completed {
+  opacity: 0.7;
+}
+
+.completed .task-text {
+  text-decoration: line-through;
+  color: #8d838c;
+}
+
+/* =========================
+   EDIT INPUT
+========================= */
+
+.task-item input[type="text"] {
   flex: 1;
   padding: 10px 12px;
   border: 1px solid #dec5d4;
@@ -223,11 +370,14 @@ body {
   background: #fffafd;
 }
 
-.task-item input:focus {
+.task-item input[type="text"]:focus {
   border-color: #d48bb1;
+  box-shadow: 0 0 0 3px rgba(212, 139, 177, 0.1);
 }
 
-/* Task Buttons */
+/* =========================
+   TASK BUTTONS
+========================= */
 
 .task-item button {
   border: none;
@@ -252,9 +402,204 @@ body {
   transform: translateY(-1px);
 }
 
-/* Mobile */
+/* =========================
+   NO TASKS
+========================= */
+
+.no-tasks {
+  text-align: center;
+  color: #9a8f99;
+  padding: 25px;
+  background: #fffafd;
+  border: 1px solid #eee4eb;
+  border-radius: 14px;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+.dark-mode {
+  background: linear-gradient(135deg, #211b25 0%, #302335 100%);
+  color: #eee;
+}
+
+.dark-mode .todo-container {
+  background: rgba(47, 38, 49, 0.97);
+  border-color: #514353;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.25),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .todo-container h1 {
+  color: #e9b5cf;
+}
+
+.dark-mode .theme-button {
+  background: #a85c86;
+}
+
+.dark-mode .theme-button:hover {
+  background: #b96a95;
+}
+
+/* Dark form */
+
+.dark-mode .todo-form input,
+.dark-mode .search-box input {
+  background: #3b303e;
+  color: #f5edf3;
+  border-color: #5a4b5c;
+}
+
+.dark-mode .todo-form input::placeholder,
+.dark-mode .search-box input::placeholder {
+  color: #aaa0aa;
+}
+
+.dark-mode .todo-form input:focus,
+.dark-mode .search-box input:focus {
+  border-color: #c98eac;
+}
+
+/* Dark stats */
+
+.dark-mode .stats div {
+  background: linear-gradient(145deg, #3b303e, #352b38);
+  border-color: #554655;
+}
+
+.dark-mode .stats strong {
+  color: #d99ab9;
+}
+
+.dark-mode .stats span {
+  color: #b9adb8;
+}
+
+/* Dark filters */
+
+.dark-mode .filters button {
+  background: #3b303e;
+  color: #d8a5bf;
+  border-color: #5a4b5c;
+}
+
+.dark-mode .filters button:hover {
+  background: #473744;
+  border-color: #c58aa9;
+}
+
+.dark-mode .filters button.active-filter {
+  background: #a85c86;
+  color: white;
+  border-color: #a85c86;
+}
+
+/* Dark task */
+
+.dark-mode .task-item {
+  background: #3a303d;
+  border-color: #514353;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.dark-mode .task-item:hover {
+  border-color: #6a5265;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.dark-mode .task-text {
+  color: #f2eaf0;
+}
+
+.dark-mode .due-date {
+  color: #b9adb8;
+}
+
+.dark-mode .drag-icon {
+  color: #d49ab8;
+}
+
+/* Dark overdue */
+
+.dark-mode .overdue {
+  background: #42323d;
+  border-color: #a96882;
+}
+
+.dark-mode .overdue-text {
+  color: #e09ab5;
+}
+
+/* Dark edit input */
+
+.dark-mode .task-item input[type="text"] {
+  background: #2e252f;
+  color: white;
+  border-color: #635063;
+}
+
+/* Dark no tasks */
+
+.dark-mode .no-tasks {
+  background: #3a303d;
+  border-color: #514353;
+  color: #b9adb8;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  body {
+    padding: 25px 12px;
+  }
+
+  .todo-container {
+    padding: 30px 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .todo-container h1 {
+    font-size: 32px;
+  }
+
+  .todo-form {
+    flex-direction: column;
+  }
+
+  .todo-form input[type="date"] {
+    flex: 1;
+    width: 100%;
+  }
+
+  .todo-form button {
+    width: 100%;
+  }
+
+  .task-item {
+    flex-wrap: wrap;
+  }
+
+  .task-content {
+    min-width: 150px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
 
 @media (max-width: 550px) {
+
   body {
     padding: 20px 10px;
   }
@@ -267,31 +612,9 @@ body {
 
   .todo-container h1 {
     font-size: 30px;
-    margin-bottom: 28px;
+    margin-bottom: 10px;
   }
 
-  .todo-form {
-    flex-direction: column;
-  }
-
-  .todo-form button {
-    width: 100%;
-  }
-
-  .task-item {
-    flex-wrap: wrap;
-  }
-
-  .task-item span {
-    width: 100%;
-  }
-
-  .task-item button {
-    flex: 1;
-  }
-}
-
-@media (max-width: 500px) {
   .stats {
     grid-template-columns: 1fr;
   }
@@ -303,4 +626,23 @@ body {
   .filters button {
     flex: 1;
   }
+
+  .task-item {
+    padding: 14px;
+  }
+
+  .task-item button {
+    flex: 1;
+  }
+}
+/* Fix checkbox position */
+
+.task-item input[type="checkbox"] {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  accent-color: #c56b9b;
+  cursor: pointer;
 }
